@@ -6,14 +6,14 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+            <li class="{{Request::is('/') ? 'nav-item active' : 'nav-item'}}">
               <a class="nav-link" href="/">Home </a>
             </li>
-            <li class="nav-item">
+            <li class=" {{Request::is('about') ? 'nav-item active' : 'nav-item'}}">
               <a class="nav-link" href="/about">About </a>
             </li>
 
-            <li class="nav-item active ">
+            <li class="{{Request::is('contact') ? 'nav-item active' : 'nav-item'}}">
               <a class="nav-link" href="/contact">Contact</a>
             </li>
           </ul>
