@@ -12,30 +12,16 @@
           </div>
           <div class="row">
             <div class="col-md-8">
-              <div class="post">
-                  <h2>Post Title XXX</h2>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam illum aliquid nihil accusamus error harum debitis, in, at sunt, minus labore totam dolorem ex doloribus rerum nulla laboriosam mollitia autem?</p>    
-                  <a href="#" class="btn btn-primary">Read more</a>
-              </div>
-              <hr>
-              <div class="post">
-                  <h2>Post Title</h2>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam illum aliquid nihil accusamus error harum debitis, in, at sunt, minus labore totam dolorem ex doloribus rerum nulla laboriosam mollitia autem?</p>    
-                  <a href="#" class="btn btn-primary">Read more</a>
-              </div>
-              <hr>
-              <div class="post">
-                  <h2>Post Title</h2>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam illum aliquid nihil accusamus error harum debitis, in, at sunt, minus labore totam dolorem ex doloribus rerum nulla laboriosam mollitia autem?</p>    
-                  <a href="#" class="btn btn-primary">Read more</a>
-              </div>
-              <hr>
-              <div class="post">
-                  <h2>Post Title</h2>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam illum aliquid nihil accusamus error harum debitis, in, at sunt, minus labore totam dolorem ex doloribus rerum nulla laboriosam mollitia autem?</p>    
-                  <a href="#" class="btn btn-primary">Read more</a>
-              </div>
-            </div>
+                @foreach ($posts as $post)
+                    <div class="post">
+                        <h2>{{$post->title}}</h2>
+                        <p>{{$post->body}}</p>    
+                    <a href="{{url('blog/'.$post->slug)}}" class="btn btn-primary">Read more</a>
+                    </div>
+                    <hr>
+                @endforeach
+     
+         
             <div class="col-md-3 col-md-offset-1">
 <h2>SIDE BAR</h2>
             </div>
