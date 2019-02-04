@@ -24,6 +24,10 @@
             <dt>Last Updated:</dt>
             <dd>{{ date('M j, Y h:ia', strtotime($post->updated_at)) }}</dd>
         </dl>
+        <dl class="dl-horizontal">
+                <dt>Category:</dt>
+                <dd>{{ $post->category['name'] }}</dd>
+            </dl>
         <hr>
         <div class="row">
 

@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
 use Session;
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +31,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+        return view('posts.create')->with('categories', $categories);
     }
 
     /**
@@ -40,12 +46,14 @@ class PostController extends Controller
         $this->validate($request, array(
             'title' => 'required|max:255',
             'slug' => 'required|unique:posts,slug',
+            'category_id' => 'required|integer',
             'body' => 'required'
         ));
 
         $post = new Post;
         $post -> title = $request -> title;
         $post -> slug = $request -> slug;
+        $post -> category_id =$request -> category_id;
         $post -> body = $request -> body;
         $post->save();
 
@@ -76,8 +84,15 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        $categories = Category::all();
+        $cats=[];
+        foreach($categories as $category){
+            $cats[$category->id] = $category->name;
+        }
 
-        return view('posts.edit')->with('post',$post);
+
+
+        return view('posts.edit')->with('post',$post)->with('categories', $cats);
     }
 
     /**
@@ -89,18 +104,33 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $post = Post::find($id);
                 // Validate the data
                     // unikalne w:posts table kolumna slug
+                    if($request->input('slug') == $post->slug){
+                $this->validate($request, array(
+                    'title' => 'required|max:255',
+                    'category_id' => 'required|integer',
+                    'body'  => 'required'
+                ));
+            }else{
                 $this->validate($request, array(
                     'title' => 'required|max:255',
                     'slug' => 'required|unique:posts,slug',
+                    'category_id' => 'required|integer',
                     'body'  => 'required'
                 ));
+            }
+
+
+
             // Save the data to the database
-            $post = Post::find($id);
+            
     
             $post->title = $request->input('title');
             $post->slug = $request->input('slug');
+            $post->category_id = $request-> input('category_id');
             $post->body = $request->input('body');
     
             $post->save();
